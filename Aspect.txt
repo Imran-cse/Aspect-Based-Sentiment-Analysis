@@ -1,0 +1,30 @@
+
+1. Volume, Sound, Sound quality,Volume,key,Voice quality,voice dialing ; [Group Name: Sound Quality]
+
+2.Speakerphone,Speaker ; [Group Name: Speaker]
+
+3.Battery life, Battery; [Group Name: Battery]
+
+4. phone ; [Group Name: Phone]
+
+5 Radio, FM radio; [Group Name: Radio]
+
+6. Ring, Ringtone, Ringer; [Group Name: Ringtone]
+
+7. Size; [Group Name: Size]
+
+8. Weight; [Group Name: Weight]
+
+9. Button, key, Keypad; [Group Name: Button]
+
+10. Screen; [Group Name: Screen]
+
+11. Design, User interface, Look, layout; [Group Name: Design]
+
+12.Camera, picture, Picture quality, image, image quality; [Group Name:Camera]
+
+13. Menu, menu option; [Group Name: Menu]
+
+14. Game; [Group Name: Game]
+
+15. Feature; [Group Name: Feature]
