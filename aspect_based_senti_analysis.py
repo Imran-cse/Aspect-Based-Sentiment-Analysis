@@ -5,7 +5,7 @@ from nltk.tokenize import RegexpTokenizer
 from nltk.util import ngrams
 from collections import Counter
 from nltk.corpus import sentiwordnet as swn
-import sentiment
+import sentiment, plot
 
 pos_tag_review = {}
 bigrams_dic = {}
@@ -59,14 +59,26 @@ class sentiAnalyzer(object):
     # this class belongs to the file sentiment.py
     s = sentiment.SentimentAnalysis(filename='SentiWordNet.txt',weighting='geometric')
     score_aspectwise_dic = {}
+    x_axes = {}
     # calculating score for sentences
     for key, value in aspect_sentence_dic.items():
         score_list = []
+        x = -5
+        x_list = []
         for k, v in value.items():
             sentiments = s.score(v)
             score_list.append(sentiments)
+            x_list.append(x)
+            x += 0.25
         score_aspectwise_dic[key] = score_list
+        x_axes[key] = x_list
     #print(score_aspectwise_dic)
+
+    for k,x in x_axes.items():
+        for key,y in score_aspectwise_dic.items():
+            if k==key:
+                plot.plot_points(x, y, 'r', 'ro')
+        
     opinion_dic = {}
     # calculation of positive and negative parcentage of every aspects score
     for key,value in score_aspectwise_dic.items():
