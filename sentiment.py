@@ -184,16 +184,21 @@ class SentimentAnalysis(object):
 
         if len(scores) > 0:
             #return sum(scores) / float(len(scores))
-            #print(scores)
+            #print(sum(scores))
+            
             summation = 0
-            total_len = 1
+            total_len = 0
             for score in scores:
 
-                if score != 0:
+                if (score > 0.01 or score < -0.01) and score !=0.0:
                     summation += score
                     if len(scores)>total_len:
                         total_len +=1
-            return summation/float(total_len)
+
+            if summation != 0.0:
+                return summation/float(total_len)
+            else:
+                return 0.0
         else:
             return 0
 

@@ -57,7 +57,7 @@ class sentiAnalyzer(object):
         
     # creating object of sentiment class
     # this class belongs to the file sentiment.py
-    s = sentiment.SentimentAnalysis(filename='SentiWordNet.txt',weighting='geometric')
+    s = sentiment.SentimentAnalysis(filename='SentiWordNet.txt',weighting='harmonic')
     score_aspectwise_dic = {}
     x_axes = {}
     # calculating score for sentences
@@ -65,8 +65,10 @@ class sentiAnalyzer(object):
         score_list = []
         x = -5
         x_list = []
+
         for k, v in value.items():
             sentiments = s.score(v)
+            #norm_score = sentiments/math.sqrt((sentiments*sentiments) + 0.25)
             score_list.append(sentiments)
             x_list.append(x)
             x += 0.25
@@ -74,24 +76,36 @@ class sentiAnalyzer(object):
         x_axes[key] = x_list
     #print(score_aspectwise_dic)
 
-    for k,x in x_axes.items():
-        for key,y in score_aspectwise_dic.items():
-            if k==key:
-                plot.plot_points(x, y, 'r', 'ro')
+    # for k,x in x_axes.items():
+    #     for key,y in score_aspectwise_dic.items():
+    #         if k==key:
+    #             plot.plot_points(x, y, 'r', 'ro')
         
     opinion_dic = {}
     # calculation of positive and negative parcentage of every aspects score
     for key,value in score_aspectwise_dic.items():
         valence = []
-        score = sum(value)/float(len(value))
-        valence.append(score)
+        score_sum = 0.0
         pos = 0
         neg = 0
+        neu = 0
         for v in value:
-            if v>0.0:
+            if v>0.01:
+                score_sum += v
                 pos+=1
-            else:
+            elif v<-0.01:
+                score_sum += v
                 neg+=1
+            else:
+                neu += 1
+        #print(score_sum)
+        #print(len(value))
+        #print(pos+neg)
+        final_score = score_sum/float(pos+neg)
+        # Normalize the score to be between -1 and 1
+        norm_score = final_score/math.sqrt((final_score*final_score) + 0.25)
+        #print(final_score,norm_score)
+        valence.append(norm_score)
         pos_percent = (pos/float(len(value)))*100.0
         neg_percent = (neg/float(len(value)))*100.0
         valence.append(pos_percent)
